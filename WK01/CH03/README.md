@@ -1,4 +1,4 @@
-#Chapter 3
+# Chapter 3
 
 __3.1__ Write out the equation for trigram probability estimation (modifying Eq. 3.11). Now write out all the non-zero trigram probabilities for the I am Sam corpus on page 33.
 
