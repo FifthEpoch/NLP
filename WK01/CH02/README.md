@@ -67,6 +67,8 @@ s di
 
 Edit distance is 3 since s costs 1, i costs 1, and d costs 1.
 
+---
+
 __2.5__ Figure out whether drive is closer to brief or to divers and what the edit distance is to each. You may use any version of distance that you like.
 
 Insertion cost 1, deletion cost 1, substitution cost 2.
