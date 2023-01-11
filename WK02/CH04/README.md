@@ -95,14 +95,28 @@ A good, good plot and great characters, but poor acting.
 
 Recall from page 62 that with naive Bayes text classification, we simply ignore (throw out) any word that never occurred in the training document. (We don’t throw out words that appear in some classes but not others; that’s what add-one smoothing is for.) Do the two models agree or disagree?<br><br>
 
-/// RESPONSE ///
+Print-out from naive-bayes.py:
 
+```
+mode:                       multinominal
+-------------------------------------------------------
+logprior for "pos":         -0.39794000867203755
+logprior for "neg":         -0.22184874961635637
+loglikelihood for "pos":    {'good': -0.47712125471966244, 'poor': -0.7781512503836435, 'great': -0.30102999566398114}
+loglikelihood for "neg":    {'good': -0.7533276666586114, 'poor': -0.18905623622004886, 'great': -0.7533276666586114}
+sum for "pos" class:        -2.431363764158987
+sum for "neg" class:        -2.6708879858122394
+most likely class:          pos
 
+mode:                       binary
+-------------------------------------------------------
+logprior for "pos":         -0.39794000867203755
+logprior for "neg":         -0.22184874961635637
+loglikelihood for "pos":    {'good': -0.7781512503836435, 'poor': -0.7781512503836435, 'great': -0.6020599913279623}
+loglikelihood for "neg":    {'good': -0.7533276666586114, 'poor': -0.6283889300503115, 'great': -0.9294189257142926}
+sum for "pos" class:        -3.3344537511509302
+sum for "neg" class:        -3.2863119386981836
+most likely class:          neg
+```
 
-
-
-
-
-
-
-
+The two models does not agree. 
