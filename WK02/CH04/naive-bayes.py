@@ -15,6 +15,36 @@ def generate_V(_D):
         if item != 'class': V.append(item)
     return V
 
+def print_res(_mode, _logprior, _loglikelihood, _sums, _max_val_c):
+    print(f'mode:                       {_mode}')
+    print('-------------------------------------------------------')
+    print(f'logprior for "pos":         {_logprior["pos"]}')
+    print(f'logprior for "neg":         {_logprior["neg"]}')
+    print(f'loglikelihood for "pos":    {_loglikelihood["pos"]}')
+    print(f'loglikelihood for "neg":    {_loglikelihood["neg"]}')
+    print(f'sum for "pos" class:        {_sums["pos"]}')
+    print(f'sum for "neg" class:        {_sums["neg"]}')
+    print(f'most likely class:          {_max_val_c}\n')
+
+def test_naive_bayes(_d, _logprior, _loglikelihood, _C, _V):
+    sums = {}
+    max_val = -1000.0
+    max_val_c = 'Not yet determined'
+
+    for c in _C:
+
+        sums.update({c: _logprior[c]})
+
+        for w in _d:
+            if w not in _V: continue
+            sums[c] += _loglikelihood[c][w]
+
+        if sums[c] > max_val:
+            max_val = sums[c]
+            max_val_c = c
+
+    return max_val_c, sums
+
 def train_naive_bayes(_C, _D, binary_mode=False):
     N_doc = len(_D)
     loglikelihood = {}
@@ -48,36 +78,6 @@ def train_naive_bayes(_C, _D, binary_mode=False):
 
     return logprior, loglikelihood, V
 
-def test_naive_bayes(_d, _logprior, _loglikelihood, _C, _V):
-    sums = {}
-    max_val = -1000.0
-    max_val_c = 'Not yet determined'
-
-    for c in _C:
-
-        sums.update({c: _logprior[c]})
-
-        for w in _d:
-            if w not in _V: continue
-            sums[c] += _loglikelihood[c][w]
-
-        if sums[c] > max_val:
-            max_val = sums[c]
-            max_val_c = c
-
-    return max_val_c, sums
-
-def print_res(_mode, _logprior, _loglikelihood, _sums, _max_val_c):
-    print(f'mode:                       {_mode}')
-    print('-------------------------------------------------------')
-    print(f'logprior for "pos":         {_logprior["pos"]}')
-    print(f'logprior for "neg":         {_logprior["neg"]}')
-    print(f'loglikelihood for "pos":    {_loglikelihood["pos"]}')
-    print(f'loglikelihood for "neg":    {_loglikelihood["neg"]}')
-    print(f'sum for "pos" class:        {_sums["pos"]}')
-    print(f'sum for "neg" class:        {_sums["neg"]}')
-    print(f'most likely class:          {_max_val_c}\n')
-
 
 if __name__ == "__main__":
 
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     logprior, loglikelihood, V = train_naive_bayes(C, D, binary_mode=False)
     max_val_c, sums = test_naive_bayes(test_d, logprior, loglikelihood, C, V)
-    print_res("multinominal", logprior, loglikelihood, sums, max_val_c)
+    print_res("multinomial", logprior, loglikelihood, sums, max_val_c)
 
     logprior, loglikelihood, V = train_naive_bayes(C, D, binary_mode=True)
     max_val_c, sums = test_naive_bayes(test_d, logprior, loglikelihood, C, V)

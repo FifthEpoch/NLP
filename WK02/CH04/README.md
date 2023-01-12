@@ -98,7 +98,7 @@ Recall from page 62 that with naive Bayes text classification, we simply ignore 
 Print-out from naive-bayes.py:
 
 ```
-mode:                       multinominal
+mode:                       multinomial
 -------------------------------------------------------
 logprior for "pos":         -0.39794000867203755
 logprior for "neg":         -0.22184874961635637
