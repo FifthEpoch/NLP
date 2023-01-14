@@ -24,3 +24,14 @@ Below are a set of training and test movie review samples taken from Rotten Toma
 |Good movie but a little too long. I liked the first one better but the special effects were better in part 2.|neu|
 |Too much violence and they killed a whale during the movie. It was all unnecessary.|neg|
 |It was an all around amazing experience:) The story and visuals were great. If you liked the original then this one is a must see!|pos|
+
+### Result
+
+From the test samples:
+1. class pos classified as pos
+2. class pos classified as pos
+3. class neg classified as neg
+4. class neg classified as neg
+5. class neu classified as pos
+
+This small classification model has an accuracy of 0.8. It seems to perform worse when the true classification of a movie review is neutral.
