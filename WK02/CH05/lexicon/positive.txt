@@ -1,4 +1,3 @@
-a+
 abound
 abounds
 abundance
