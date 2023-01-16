@@ -2,9 +2,29 @@
 
 __8.1__ Find one tagging error in each of the following sentences that are tagged with the Penn Treebank tagset:
 1. ```I/PRP need/VBP a/DT flight/NN from/IN Atlanta/NN```
+
+
+    ```Atlanta/NN``` -> ```Atlanta/NNP```
+
+
 2. ```Does/VBZ this/DT flight/NN serve/VB dinner/NNS```
+
+
+    ```dinner/NNS``` -> ```dinner/NN```
+
+
 3. ```I/PRP have/VB a/DT friend/NN living/VBG in/IN Denver/NNP```
+
+
+    ```have/VB``` -> ```have\VBP```
+
+
 4. ```Can/VBP you/PRP list/VB the/DT nonstop/JJ afternoon/NN flights/NNS```
+
+
+    ```afternoon/NN``` -> ```afternoon/JJ```
+
+
 
 /// RESPONSE
 
