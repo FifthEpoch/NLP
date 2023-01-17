@@ -71,15 +71,13 @@ I have no friends.
 
 __8.4__ Implement the “most likely tag” baseline. Find a POS-tagged training set, and use it to compute for each word the tag that maximizes $p(t|w)$. You will need to implement a simple tokenizer to deal with sentence boundaries. Start by assuming that all unknown words are NN and compute your error rate on known and unknown words. Now write at least five rules to do a better job of tagging unknown words, and show the difference in error rates.
 
-/// RESPONSE
-
-/// NOTE
-This idea suggests a useful baseline: given an ambiguous word, choose the tag
-which is most frequent in the training corpus. This is a key concept:
-Most Frequent Class Baseline: Always compare a classifier against a baseline at
-least as good as the most frequent class baseline (assigning each token to the class
-it occurred in most often in the training set).
-///
+```
+Assuming that all unknown words are NN
+>> accuracy: 0.8184096423883209
+With additional rules for unknown words
+>> accuracy: 0.8638370659135208
+1142 more words got correctly classified.
+```
 
 __8.5__ Build a bigram HMM tagger. You will need a part-of-speech-tagged corpus. First split the corpus into a training set and test set. From the labeled training set, train the transition and observation probabilities of the HMM tagger directly on the hand-tagged data. Then implement the Viterbi algorithm so you can decode a test sentence. Now run your algorithm on the test set. Report its error rate and compare its performance to the most frequent tag baseline.
 
