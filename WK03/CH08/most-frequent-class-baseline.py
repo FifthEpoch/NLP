@@ -3,8 +3,8 @@ import math
 
 import nltk
 nltk.download('brown')
-
 from nltk.corpus import brown
+
 def generate_dict(_samples):
     # create a tag dictionary that captures
     # the count of each (word, tag) combo
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     print(f"length of training set:     {len(training_list)}")
     print(f"length of testing set:      {len(testing_list)}")
 
-    # uncommetn to see how much the training set and testing set overlap
+    # uncomment to see how much the training set and testing set overlap
     # print(f"intersection:               {len(intersection)}")
 
     # uncomment to survey tagged corpus

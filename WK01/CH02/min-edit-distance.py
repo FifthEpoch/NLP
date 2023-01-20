@@ -4,6 +4,8 @@ import numpy as np
 def min_edit_dist(_src, _tar):
 
     def sub_cost(_src_i, _tar_j):
+        # substitution costs 2 if source !== target
+        # it costs 0 if they are the same since no action is needed
         return 0 if _src_i == _tar_j else 2
 
     n = len(_src)

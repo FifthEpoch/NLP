@@ -71,6 +71,8 @@ I have no friends.
 
 __8.4__ Implement the “most likely tag” baseline. Find a POS-tagged training set, and use it to compute for each word the tag that maximizes $p(t|w)$. You will need to implement a simple tokenizer to deal with sentence boundaries. Start by assuming that all unknown words are NN and compute your error rate on known and unknown words. Now write at least five rules to do a better job of tagging unknown words, and show the difference in error rates.
 
+See ```most-frequent-class-baseline.py```
+
 ```
 Assuming that all unknown words are NN
 >> accuracy: 0.8184096423883209
@@ -81,7 +83,9 @@ With additional rules for unknown words
 
 __8.5__ Build a bigram HMM tagger. You will need a part-of-speech-tagged corpus. First split the corpus into a training set and test set. From the labeled training set, train the transition and observation probabilities of the HMM tagger directly on the hand-tagged data. Then implement the Viterbi algorithm so you can decode a test sentence. Now run your algorithm on the test set. Report its error rate and compare its performance to the most frequent tag baseline.
 
-/// RESPONSE
+See viterbi.py
+
+Bigram HMM tagger predicted tags with a 0.9175782648474482 accuracy, outperforming the “most likely tag” baseline method.
 
 __8.6__ Do an error analysis of your tagger. Build a confusion matrix and investigate the most frequent errors. Propose some features for improving the performance of your tagger on these errors.
 
@@ -102,6 +106,32 @@ __8.9__ Names of works of art (books, movies, video games, etc.) are quite diffe
 __8.10__ Develop an NER system specific to the category of names that you collected in the last exercise. Evaluate your system on a collection of text likely to contain instances of these named entities.
 
 /// RESPONSE
+
+
+### Additional Question in the Chapter
+
+__Q1__ Use the sample probabilities in Fig. 8.8a (with $\Pi(\text{hot}, \text{cold}, \text{warm}) = [0.1,0.7,0.2]$)
+to compute the probability of each of the following sequences:
+
+$P(\text{hot}|\text{hot}) = 0.6$; $P(\text{cold}|\text{hot}) = 0.1$; $P(\text{warm}|\text{hot}) = 0.3$;
+
+$P(\text{hot}|\text{cold}) = 0.1$; $P(\text{cold}|\text{cold}) = 0.8$; $P(\text{warm}|\text{cold}) = 0.1$;
+
+$P(\text{hot}|\text{warm}) = 0.3$; $P(\text{cold}|\text{warm}) = 0.1$; $P(\text{warm}|\text{warm}) = 0.6$;
+
+(8.4) hot hot hot hot
+
+$\text{Probability} = 0.1 \times 0.6 \times 0.6 \times 0.6 = 0.0216$
+
+(8.5) cold hot cold hot
+
+$\text{Probability} = 0.7 \times 0.1 \times 0.1 \times 0.1 = 0.0007$
+
+
+__Q2__ What does the difference in these probabilities tell you about a real-world weather
+fact encoded in Fig. 8.8a?
+
+It is more likely for a particular temperature to persist than to swing to the other extreme. 
 
 
 
