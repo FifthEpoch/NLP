@@ -93,15 +93,27 @@ __8.6__ Do an error analysis of your tagger. Build a confusion matrix and invest
 
 __8.7__ Develop a set of regular expressions to recognize the character shape features described on page 176.
 
-/// RESPONSE
+X. X. X. (e.g. I.M.F.) -> ```/([A-Z]\.( )?)+/```
+
+XXdd-dd (e.g. DC10-30) -> ```/[A-Z]{1, 6}[0-9][0-9](-|_)[0-9][0-9]/```
+
 
 __8.8__ The BIO and other labeling schemes given in this chapter aren’t the only possible one. For example, the B tag can be reserved only for those situations where an ambiguity exists between adjacent entities. Propose a new set of BIO tags for use with your NER system. Experiment with it and compare its performance with the schemes presented in this chapter.
 
-/// RESPONSE
+| tag      | meaning|
+|----------|--------|
+| S-PER    |Start of a person's name|
+| I-PER    |Part of a person's name or end of a person's name|
+| B-PER    |Start of a person's name but the named entity also appears under a different named entity category|
+
 
 __8.9__ Names of works of art (books, movies, video games, etc.) are quite different from the kinds of named entities we’ve discussed in this chapter. Collect a list of names of works of art from a particular category from a Web-based source (e.g., gutenberg.org, amazon.com, imdb.com, etc.). Analyze your list and give examples of ways that the names in it are likely to be problematic for the techniques described in this chapter.
 
-/// RESPONSE
+For this assignment I collected the top 1000 movie titles from IMDB. There are several details related to the movie title named entity that might be ambiguous for a named entity tagging task: 
+
+1. A lot of movies are based on novels, such as The Wolf of Wall Street, V for Vendetta, Gone Girl, and Harry Potter and the Deathly Hallows. 
+2. Movies about a famous person is often titled with just the person's name (e.g. Hamilton, Andrei Rublev, Ip Man, JFK). Similarly, some movies are titled after the main fictional character it portrays (e.g. Forrest Gump, Joker, Princess Mononoke, Amélie)
+3. Other ambiguity might be 1917 which is a movie but also a year; the movie Central Station where the title is also a location; the movie Bohemian Rhapsody which is also the title to a very popular song; the movie Brazil which is a location and a geo-political entity.
 
 __8.10__ Develop an NER system specific to the category of names that you collected in the last exercise. Evaluate your system on a collection of text likely to contain instances of these named entities.
 
