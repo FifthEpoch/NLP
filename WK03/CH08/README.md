@@ -83,13 +83,19 @@ With additional rules for unknown words
 
 __8.5__ Build a bigram HMM tagger. You will need a part-of-speech-tagged corpus. First split the corpus into a training set and test set. From the labeled training set, train the transition and observation probabilities of the HMM tagger directly on the hand-tagged data. Then implement the Viterbi algorithm so you can decode a test sentence. Now run your algorithm on the test set. Report its error rate and compare its performance to the most frequent tag baseline.
 
-See viterbi.py
+See ```viterbi.py```
 
 Bigram HMM tagger predicted tags with a 0.9175782648474482 accuracy, outperforming the “most likely tag” baseline method.
 
 __8.6__ Do an error analysis of your tagger. Build a confusion matrix and investigate the most frequent errors. Propose some features for improving the performance of your tagger on these errors.
 
-/// RESPONSE
+```
+Tag with the most false positives is: NOUN with 819 counts.
+Tag with the most false negative is:  ADJ with 588 counts.
+
+model got 23067 samples correct out of 25139
+accuracy: 0.9175782648474482
+```
 
 __8.7__ Develop a set of regular expressions to recognize the character shape features described on page 176.
 
@@ -117,7 +123,7 @@ For this assignment I collected the top 1000 movie titles from IMDB. There are s
 
 __8.10__ Develop an NER system specific to the category of names that you collected in the last exercise. Evaluate your system on a collection of text likely to contain instances of these named entities.
 
-/// RESPONSE
+See ```NER-movie-titles.py```
 
 
 ### Additional Question in the Chapter

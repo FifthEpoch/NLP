@@ -64,6 +64,12 @@ def viterbi(_samples, _tag_freq, _word_per_tag_freq, _bigram, _init_dist):
     test_size = len(_samples)
     current_index = 0
     is_correct = 0
+
+    # populate the confusion matrix
+    confusion_matrices = {}
+    for tag in tag_frequency:
+        confusion_matrices.update({tag: {'TP': 0, 'FP': 0, 'TN': 0, 'FN': 0}})
+
     while current_index < test_size:
 
         # find the boundry of a sentence
@@ -147,9 +153,47 @@ def viterbi(_samples, _tag_freq, _word_per_tag_freq, _bigram, _init_dist):
         print(f'hidden s:       {hidden_state}')
         print(f'predictions:    {predictions}')
 
+        # fill in the confusion matrix
         for i in range(len(predictions)):
-            if predictions[i] == hidden_state[i]: is_correct += 1
+            if predictions[i] == hidden_state[i]:
+                # prediction is correct
+                is_correct += 1
+                for j in confusion_matrices:
+                    if j == predictions[i]:
+                        confusion_matrices[j]['TP'] += 1
+                    else:
+                        confusion_matrices[j]['TN'] += 1
+            else:
+                # prediction is incorrect
+                for j in confusion_matrices:
+                    if j == predictions[i]:
+                        confusion_matrices[j]['FP'] += 1
+                    elif j == hidden_state[i]:
+                        confusion_matrices[j]['FN'] += 1
+                    else:
+                        confusion_matrices[j]['TN'] += 1
 
+        # rank
+        highest_FP_tag = []
+        highest_FP = -1
+        highest_FN_tag = []
+        highest_FN = -1
+        for tag in confusion_matrices:
+
+            print(f'{tag}: {confusion_matrices[tag]}')
+
+            if confusion_matrices[tag]['FP'] > highest_FP:
+                highest_FP = confusion_matrices[tag]['FP']
+                highest_FP_tag = tag
+
+            if confusion_matrices[tag]['FN'] > highest_FN:
+                highest_FN = confusion_matrices[tag]['FN']
+                highest_FN_tag = tag
+
+        print(f'\nTag with the most false positives is: {highest_FP_tag} with {highest_FP} counts.')
+        print(f'Tag with the most false negative is:  {highest_FN_tag} with {highest_FN} counts.')
+
+    print(f'\nmodel got {is_correct} samples correct out of {test_size}')
     print(f'accuracy: {is_correct / test_size}')
 
 
@@ -165,7 +209,6 @@ if __name__ == "__main__":
     testing_list = CORPUS[CUT_OFF:]
 
     tag_frequency, word_per_tag_frequency, tag_bigram, init_dist = collect_probabilities(training_list)
-    print(init_dist)
     viterbi(testing_list, tag_frequency, word_per_tag_frequency, tag_bigram, init_dist)
 
 
