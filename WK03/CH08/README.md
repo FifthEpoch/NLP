@@ -123,7 +123,12 @@ For this assignment I collected the top 1000 movie titles from IMDB. There are s
 
 __8.10__ Develop an NER system specific to the category of names that you collected in the last exercise. Evaluate your system on a collection of text likely to contain instances of these named entities.
 
-See ```NER-movie-titles.py```
+Below are some examples of the BIO labeling system in ```NER-movie-titles.py```
+
+1. ```... to find its way into hits like ('The', 'B-MOV') ('Matrix', 'I-MOV') ( 1999 ) and Kill ...```
+2. ```... the trend . Jet Li ’ s ('Hero', 'B-MOV') ( 2002 ) and Fearless ( ...```
+3. ```... comedies Shaolin Soccer ( 2001 ) and ('Kung', 'B-MOV') ('Fu', 'I-MOV') ('Hustle', 'I-MOV') ( 2004 ) , ...```
+4. ```... ) , and Donnie Yen ’ s ('Ip', 'B-MOV') ('Man', 'I-MOV') ( 2008 ) . Shang-Chi  ...```
 
 
 ### Additional Question in the Chapter
