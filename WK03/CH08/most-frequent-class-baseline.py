@@ -49,20 +49,23 @@ def predict_tag(_test_set, _tag_dict):
     return accuracy
 
 def predict_tag_with_improvements(_test_set, _tag_dict):
+
     accuracy = 0
     for item in _test_set:
+
         word = item[0]
         true_tag = item[1]
         if word in _tag_dict:
             prediction = _tag_dict[word][0]['tag']
         else:
             prediction = 'NN'
+
             # additional rules to analyze unknown words
             if re.match('.*ing$', word):
                 prediction = 'VBG'
             elif re.match(".*'s$", word):
                 prediction = 'NP$'
-            elif re.match('.*s$', word):
+            elif re.match('.+s$', word):
                 prediction = 'NNS'
             elif re.match('.+ly$', word):
                 prediction = 'RB'
@@ -76,6 +79,7 @@ def predict_tag_with_improvements(_test_set, _tag_dict):
                 prediction = 'NP'
 
         if prediction == true_tag: accuracy += 1
+
     accuracy /= len(_test_set)
     print(f"With additional rules for unknown words")
     print(f">> accuracy: {accuracy}")
