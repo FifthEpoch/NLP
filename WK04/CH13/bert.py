@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import torch
 import math
-from scipy.spatial.distance import cosine
 
 def bert_text_preprocessing(_text, _tokenizer):
     # adds bert-specific tokens
@@ -27,6 +26,7 @@ def get_bert_embeddings(_tokens_tensor, _segments_tensors, _model):
     # Model is in inference mode
     with torch.no_grad():
         outputs = _model(_tokens_tensor, _segments_tensors)
+        print(f'outputs: \n{outputs}')
         # Removing the first hidden state
         # The first state is the input state
         hidden_states = outputs[2][1:]
@@ -41,11 +41,18 @@ def get_bert_embeddings(_tokens_tensor, _segments_tensors, _model):
     return list_token_embeddings
 
 def compute_cosine_similarity(_u, _v):
-    denominator = math.sqrt(np.sum(_u ** 2)) * math.sqrt(np.sum(_v ** 2))
+    denominator = math.sqrt(np.sum(np.array(_u) ** 2)) * math.sqrt(np.sum(np.array(_v) ** 2))
     return np.dot(_u, _v) / denominator
 
 def align_sentences():
     return 0
+
+"""
+In this program, we are analyzing the use of the word "set"
+in different sentences. The goal is to compare the usage of the word 
+in the sentences using BERT embedding, and for each sentence, find 
+a sample sentence where the usage of "set" is the closest. 
+"""
 
 texts = ["set",
          "On your mark, get set, go!",
@@ -59,8 +66,8 @@ texts = ["set",
 
 target_word_embeddings = []
 
-# loading the pre-trained BERT model
-model = BertModel.from_pretrained('bert-base-uncased',output_hidden_states = True)
+# loading the pre-trained BERT model (other models: bert-base-multilingual-cased, bert-base-uncased)
+model = BertModel.from_pretrained('bert-base-uncased',output_hidden_states=True)
 # loading bert tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
@@ -76,11 +83,14 @@ for text in texts:
 
 list_of_distances = []
 for text1, embed1 in zip(texts, target_word_embeddings):
-    print(f'TARGET: {text1}')
+    print(f'\nTARGET: {text1}')
+    cos_dists = np.array([])
     for text2, embed2 in zip(texts, target_word_embeddings):
-
-        cos_dist = 1 - cosine(embed1, embed2)
+        cos_dist = compute_cosine_similarity(embed1, embed2)
         list_of_distances.append([text1, text2, cos_dist])
-        print(f'CANDIDATE: {text2}, dist={cos_dist}')
-
-distances_df = pd.DataFrame(list_of_distances, columns=['text1', 'text2', 'distance'])
+        if text2 == text1:
+            cos_dists = np.append(cos_dists, 0)
+        else:
+            cos_dists = np.append(cos_dists, cos_dist)
+            print(f'dist: {round(cos_dist, 4)}, text: {text2}')
+    print(f'best match: {texts[np.argmax(cos_dists)]}')

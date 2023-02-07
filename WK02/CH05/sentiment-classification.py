@@ -1,8 +1,6 @@
 from nltk.tokenize import word_tokenize
 import numpy as np
-import os
 import math
-import random
 
 def tokenize_file(_filename):
     tokens = []
