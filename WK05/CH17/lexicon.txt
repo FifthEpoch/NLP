@@ -1,0 +1,7 @@
+AUX -> does
+PRONOUN -> I / she / me
+PROPER-NOUN -> Houston / NWA
+VERB -> book / include / prefer
+DET -> that / this / the / a
+NOUN -> book / flight / meal / money
+PREPOSITION -> from / to / on / near / through
