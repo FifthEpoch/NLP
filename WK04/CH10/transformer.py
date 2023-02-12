@@ -68,3 +68,4 @@ Q = np.dot(np.transpose(X), W_Q)
 K = np.dot(np.transpose(X), W_K)
 # Value
 V = np.dot(np.transpose(X), W_V)
+

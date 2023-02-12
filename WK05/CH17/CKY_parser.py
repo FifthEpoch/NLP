@@ -1,5 +1,13 @@
 import re
 import pprint
+import nltk
+
+nltk.download('large_grammars')
+atis_grammar = nltk.data.load("grammars/large_grammars/atis.cfg")
+atis_cng_grammar = atis_grammar.chomsky_normal_form()
+print(atis_grammar)
+print('chomsky normal form')
+print(atis_cng_grammar)
 
 def convert_to_CNF_grammar(_grammar_filename, _lexicon_filename):
     """

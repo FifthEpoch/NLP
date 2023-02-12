@@ -1,5 +1,4 @@
 from transformers import BertTokenizer, BertModel
-import pandas as pd
 import numpy as np
 import torch
 import math
