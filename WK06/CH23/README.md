@@ -13,32 +13,17 @@ Here are a sentences from ```small-corpus.txt``` which I have tagged by hand.
 
 "Researchers Discover a More Flexible Approach to Machine Learning"
 
->Researchers: 
-> ```Synset('research_worker.n.01'): a scientist who devotes himself to doing research```
-
->Discover: 
-> ```Synset('detect.v.01'): discover or determine the existence, presence, or fact of```
-
->a:
-> none of the definitions were correct for this usage of "a"
-
->More: 
-> ```Synset('more.r.01'): used to form the comparative of some adjectives and adverbs```
-
->Flexible:
-> ```Synset('elastic.s.02'): able to adjust readily to different conditions```
-
->Approach:
-> ```Synset('approach.n.01'): ideas or actions intended to deal with a problem or situation```
-
->to: 
->returned nothing from WordNet
-
->Machine: 
-> ```Synset('machine.n.01'): any mechanical or electrical device that transmits or modifies energy to perform or assist in the performance of human tasks```
-
->Learning:
->```Synset('learn.v.01'): gain knowledge or skills``` 
+```
+Researchers:   a scientist who devotes himself to doing research
+Discover:      discover or determine the existence, presence, or fact of
+a:             none of the definitions were correct for this usage of "a"
+More:          used to form the comparative of some adjectives and adverbs
+Flexible:      able to adjust readily to different conditions
+Approach:      ideas or actions intended to deal with a problem or situation
+to:            returned nothing from WordNet
+Machine:       any mechanical or electrical device that transmits or modifies energy to perform or assist in the performance of human tasks
+Leanring:      gain knowledge or skills
+```
 
 There are several difficulties in disambiguating word senses by hand.
 1. More than one sense can be applied to a particular use case since some of the senses only differ slightly. For example, all 3 of the senses of the word "Discovers" can be applied to this specific use case and they are all correct:
