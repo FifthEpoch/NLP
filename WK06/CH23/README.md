@@ -40,13 +40,7 @@ There are several difficulties in disambiguating word senses by hand.
    * The word belongs to the classes covered by WordNet but was not documented by it
    We will have to come up with some way to differentiate between the two possibilities for a given word to process it further.
 
-__23.3__ Using your favorite dictionary, simulate the original Lesk word overlap disambiguation algorithm described on page 469 on the phrase Time flies like an arrow. Assume that the words are to be disambiguated one at a time, from left to right, and that the results from earlier decisions are used later in the process.
-
-
-/// WIP
-
-
-
+   
 __23.4__ 
 
 See ```wordnet.py``` for calculation. 

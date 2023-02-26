@@ -5,11 +5,18 @@ import nltk
 nltk.download('large_grammars')
 atis_grammar = nltk.data.load("grammars/large_grammars/atis.cfg")
 atis_cng_grammar = atis_grammar.chomsky_normal_form()
-print(atis_grammar)
-print('chomsky normal form')
-print(atis_cng_grammar)
+#print(atis_grammar)
+#print('chomsky normal form')
+#print(atis_cng_grammar)
 
-def convert_to_CNF_grammar(_grammar_filename, _lexicon_filename):
+nltk.download('treebank')
+from nltk.corpus import treebank
+print(len(treebank.tagged_words('wsj_0001.mrg')))
+for i in range(1):
+    print(treebank.tagged_words('wsj_0001.mrg')[i])
+print(treebank.parsed_sents('wsj_0001.mrg'))
+
+def convert_to_CNF_grammar(_grammar_filename, _lexicon_filename, _allow_unit_production=False):
     """
     1. Copy all conforming rules to the new grammar unchanged.
     2. Convert terminals within rules to dummy non-terminals.
@@ -76,58 +83,60 @@ def convert_to_CNF_grammar(_grammar_filename, _lexicon_filename):
             lexicon[words[0]].append([words[l]])
             grammar[words[0]].append([words[l]])
 
-    # get rid of unit productions
-    for key in grammar.copy():
 
-        for i in range(len(grammar[key])):
+    if not _allow_unit_production:
 
-            # find all unit production
-            if len(grammar[key][i]) == 1:
+        # get rid of unit productions
+        for key in grammar.copy():
 
-                # extracting the RHS string of the unit production
-                current_RHS = grammar[key][i][0]
+            for i in range(len(grammar[key])):
 
-                if not current_RHS.isupper() \
-                        or current_RHS not in grammar:
+                # find all unit production
+                if len(grammar[key][i]) == 1:
 
-                    search_LHS = key
-                    matched = True
-                    while matched:
-                        matched = False
-                        for k, v in grammar.items():
-                            for n in range(len(v)):
-                                if len(v[n]) == 1 and v[n][0] == search_LHS:
-                                    matched = True
-                                    search_LHS = k
-                                    if [current_RHS] not in grammar[search_LHS]:
-                                        grammar[search_LHS].append([current_RHS])
-                    continue
+                    # extracting the RHS string of the unit production
+                    current_RHS = grammar[key][i][0]
 
-                # loop through all LHS matches for the current RHS string
-                for j in range(len(grammar[current_RHS])):
+                    if not current_RHS.isupper() \
+                            or current_RHS not in grammar:
 
-                    temp_list = grammar[current_RHS][j].copy()
+                        search_LHS = key
+                        matched = True
+                        while matched:
+                            matched = False
+                            for k, v in grammar.items():
+                                for n in range(len(v)):
+                                    if len(v[n]) == 1 and v[n][0] == search_LHS:
+                                        matched = True
+                                        search_LHS = k
+                                        if [current_RHS] not in grammar[search_LHS]:
+                                            grammar[search_LHS].append([current_RHS])
+                        continue
 
-                    while len(temp_list) > 2:
+                    # loop through all LHS matches for the current RHS string
+                    for j in range(len(grammar[current_RHS])):
 
-                        temp_key = f'X{new_sym_index}'
-                        grammar.update({temp_key: [temp_list[:2]]})
-                        new_sym_index += 1
+                        temp_list = grammar[current_RHS][j].copy()
 
-                        del temp_list[0]
-                        temp_list[0] = temp_key
+                        while len(temp_list) > 2:
+                            temp_key = f'X{new_sym_index}'
+                            grammar.update({temp_key: [temp_list[:2]]})
+                            new_sym_index += 1
 
-                    if len(temp_list) == 2:
-                        if temp_list not in grammar[key]:
-                            grammar[key].append(temp_list)
-                    elif len(temp_list) == 1: # another unit production
+                            del temp_list[0]
+                            temp_list[0] = temp_key
 
-                        search_RHS = current_RHS
-                        while search_RHS not in lexicon.keys() and search_RHS in grammar:
-                            for k in range(len(grammar[search_RHS])):
-                                if len(grammar[search_RHS][k]) == 1:
-                                    search_RHS = grammar[search_RHS][k][0]
-                                    break
+                        if len(temp_list) == 2:
+                            if temp_list not in grammar[key]:
+                                grammar[key].append(temp_list)
+                        elif len(temp_list) == 1:  # another unit production
+
+                            search_RHS = current_RHS
+                            while search_RHS not in lexicon.keys() and search_RHS in grammar:
+                                for k in range(len(grammar[search_RHS])):
+                                    if len(grammar[search_RHS][k]) == 1:
+                                        search_RHS = grammar[search_RHS][k][0]
+                                        break
 
     return grammar
 
@@ -146,30 +155,23 @@ def CKY_parse(_text, _grammar):
 
     for j in range(1, len(_text)):
 
-        print(f'j: {j}')
-
         for LHS, RHS in _grammar.items():
             for m in range(len(RHS)):
                 if RHS[m][0] == _text[j]:
                     table[j-1][j].append(LHS)
 
         for i in reversed(range(j-1)):   # from j-2 down to 0
-            print(f'i: {i}')
             # if i < 0: continue; skip if out of bound
             for k in (i+1, j-2):
-                print(f'k: {k}')
                 # loop through all possible POS collected for current cell[j-1, j]
                 B = table[i][k]
                 C = table[k][j]
-                print(f'B: {B}, C: {C}')
 
                 for LHS, RHS in _grammar.items():
                     for item in RHS:
                         for m in range(len(B)):
                             for n in range(len(C)):
-                                print(f'item: {item}, B[m], C[n]: {[B[m], C[n]]}')
                                 if item == [B[m], C[n]]:
-                                    print('matched!')
                                     if LHS not in table[i][j]:
                                         table[i][j].append(LHS)
 
@@ -180,16 +182,24 @@ def computer_PARSEVAL():
 
 grammar_filename = "L1_grammar.txt"
 lexicon_filename = "lexicon.txt"
-grammar_CNF = convert_to_CNF_grammar(grammar_filename, lexicon_filename)
-print('Chomsky Normal Form Grammar:')
+grammar_CNF = convert_to_CNF_grammar(grammar_filename, lexicon_filename, _allow_unit_production=False)
+grammar_CNF_unit_prod_allowed = convert_to_CNF_grammar(grammar_filename, lexicon_filename, _allow_unit_production=True)
+print('\nChomsky Normal Form Grammar:')
 pprint_var = pprint.pprint(grammar_CNF)
+print('\nChomsky Normal Form Grammar (unit production allowed):')
+pprint_var_unit_prod = pprint.pprint(grammar_CNF_unit_prod_allowed)
 
 text = ['S', 'book', 'the', 'flight', 'through', 'Houston']
 grammar_table = CKY_parse(text, grammar_CNF)
+grammar_table_unit_prod = CKY_parse(text, grammar_CNF_unit_prod_allowed)
 
 print('\ngrammar_table: ')
 for row in range(len(grammar_table)):
     print(grammar_table[row])
+
+print('\ngrammar_table using CNF w/ unit production allowed: ')
+for row in range(len(grammar_table_unit_prod)):
+    print(grammar_table_unit_prod[row])
 
 # uncomment to store lexicon in dictionary
 # lexicon = retrieve_lexicon(lexicon_filename)

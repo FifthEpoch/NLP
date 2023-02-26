@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
     tag_dict = generate_dict(training_list)
     accurary_base = predict_tag(testing_list, tag_dict)
-    accurary_impr =predict_tag_with_improvements(testing_list, tag_dict)
+    accurary_impr = predict_tag_with_improvements(testing_list, tag_dict)
     delta = math.floor((accurary_impr - accurary_base) * len(testing_list))
     print(f"{delta} more words got correctly classified.")
 

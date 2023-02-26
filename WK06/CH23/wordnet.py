@@ -150,9 +150,12 @@ if run_bidirectional_lesk:
 
     print(overlap_count_dict)
     for word in tokenized_sent:
-        overlap_count_dict[word] = dict(sorted(overlap_count_dict[word].items(), key=lambda item: item[1], reverse=True ))
+        overlap_count_dict[word] = dict(
+            sorted(overlap_count_dict[word].items(),
+                   key=lambda item: item[1], reverse=True ))
         if len(list(overlap_count_dict[word].keys())) > 0:
-            best_sense = list(overlap_count_dict[word].keys())[0].definition()
+            best_sense = \
+                list(overlap_count_dict[word].keys())[0].definition()
         else:
             best_sense = 'NOT FOUND'
         print(f'{word}: {best_sense}')
