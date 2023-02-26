@@ -2,6 +2,7 @@ For this week's work:
 * Reviewed current literatures in a specific area of NLP–Natural Language Inference (NLI)
 * Read latest public opinions on the popularization of generative natural language models like ChatGPT
 * Identified a research question that is worth pursuing for the next 3 weeks
+* Tested the ClaimBuster and ChatGPT APIs and collected data for the proposed experiment
 
 Below is an introduction of the research problem, and the approaches I plan on using in my experiment. 
 
