@@ -8,7 +8,7 @@ Exercises taken from *Speech and Language Processing (3rd ed. draft)* by Dan Jur
 * [Ch 4: Naive Bayes, Text Classification, and Sentiment](https://github.com/FifthEpoch/NLP/tree/master/WK02/CH04)
 * [Ch 5: Logistic Regression](https://github.com/FifthEpoch/NLP/tree/master/WK02/CH05)
 * [Ch 8: Sequence Labeling for Parts of Speech and Named Entities](https://github.com/FifthEpoch/NLP/tree/master/WK03/CH08)
-* (WIP)[Ch 10: Transformers and Pretrained Language Models](https://github.com/FifthEpoch/NLP/tree/master/WK04/CH10)
+* [Ch 10: Transformers and Pretrained Language Models](https://github.com/FifthEpoch/NLP/tree/master/WK04/CH10) (WIP)
 * [Ch 13: Machine Translation](https://github.com/FifthEpoch/NLP/tree/master/WK04/CH13)
 * [Ch 17: Context-Free Grammars and Constituency Parsing](https://github.com/FifthEpoch/NLP/tree/master/WK05/CH17)
 * [Ch 23: Word Senses and WordNet](https://github.com/FifthEpoch/NLP/tree/master/WK06/CH23)

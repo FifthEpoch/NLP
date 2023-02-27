@@ -4,7 +4,7 @@ import pandas as pd
 import openai
 
 openai.organization = "org-ECWHKfp4JLB4quuAdewJ6WuU"
-openai.api_key = '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'
+openai.api_key = '<INSERT KEY>'
 def prompt_chat_gpt(_prompt):
   response = openai.Completion.create(
     engine="text-davinci-002",
