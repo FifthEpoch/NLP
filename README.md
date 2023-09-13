@@ -1,6 +1,6 @@
 # Natural Language Processing
 
-## Textbook Exercises
+## Exercises
 Exercises taken from *Speech and Language Processing (3rd ed. draft)* by Dan Jurafsky and James H. Martin. Below are links to my response to the back of book written and programming exercises.
 
 * [Ch 2: Regular Expressions, Text Normalization, Edit Distance](https://github.com/FifthEpoch/NLP/tree/master/WK01/CH02)
